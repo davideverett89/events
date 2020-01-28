@@ -98,8 +98,8 @@ const pies = [
 ];
 
 const printToDOM = (element, string) => {
-    let domElement = document.getElementById(element);
-    domElement.innerHTML += string;
+    const domElement = document.getElementById(element);
+    domElement.innerHTML = string;
 }
 
 const pieBuilder = (arr) => {
@@ -124,74 +124,25 @@ const pieBuilder = (arr) => {
     printToDOM("root", string);
 }
 
-// const clearDiv = () => {
-//     document.getElementById("root").innerHTML = "";
-// }
-
-// const zoe = () => {
-//     document.getElementById("root").innerHTML = "";
-//     const zoePies = [];
-//     pies.forEach(function (obj) {
-//         if (obj.instructor === "Zoe") {
-//             zoePies.push(obj);
-//         }
-//     })
-//     pieBuilder(zoePies);
-// }
-
-// const mary = () => {
-//     document.getElementById("root").innerHTML = "";
-//     const maryPies = [];
-//     pies.forEach(function (obj) {
-//         if (obj.instructor === "Mary") {
-//             maryPies.push(obj);
-//         }
-//     })
-//     pieBuilder(maryPies);
-// }
-
-// const luke = () => {
-//     document.getElementById("root").innerHTML = "";
-//     const lukePies = [];
-//     pies.forEach(function (obj) {
-//         if (obj.instructor === "Luke") {
-//             lukePies.push(obj);
-//         }
-//     })
-//     pieBuilder(lukePies);
-// }
-
-// const me = () => {
-//     document.getElementById("root").innerHTML = "";
-//     const myPies = [];
-//     pies.forEach(function (obj) {
-//         if (obj.instructor === "David") {
-//             myPies.push(obj);
-//         }
-//     })
-//     pieBuilder(myPies);
-// }
-
-const allPies = () => {
-    document.getElementById("root").innerHTML = "";
-    pieBuilder(pies);
-}
-
 const findMyPies = (e) => {
     const buttonId = e.target.id;
-    const myPies = [];
-    for (let i = 0; i < pies.length; i++) {
-        if (pies[i].instructor === buttonId) {
-            myPies.push(pies[i]);
+    if (buttonId === "All") {
+        pieBuilder(pies);
+    } else {
+        const myPies = [];
+        for (let i = 0; i < pies.length; i++) {
+            if (pies[i].instructor === buttonId) {
+                myPies.push(pies[i]);
+            }
         }
+        pieBuilder(myPies);
     }
-    pieBuilder(myPies);
 }
 
 document.getElementById("Zoe").addEventListener("click", findMyPies);
 document.getElementById("Mary").addEventListener("click", findMyPies);
 document.getElementById("Luke").addEventListener("click", findMyPies);
-document.getElementById("Me").addEventListener("click", findMyPies);
+document.getElementById("David").addEventListener("click", findMyPies);
 document.getElementById("All").addEventListener("click", findMyPies);
 
 const init = () => {
