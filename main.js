@@ -102,28 +102,99 @@ const printToDOM = (element, string) => {
     domElement.innerHTML += string;
 }
 
-const pieBuilder = () => {
-    pies.forEach(function (obj) {
-        printToDOM("root", `
-        <div class="card">
-            <img src="${obj.img}" alt="${obj.name}" style="width:100%">
-            <div class="container">
-                <h4><b>${obj.name}</b></h4>
-                <p>Price: $${obj.price}</p>
-                <p>${(obj.isAvailable === true) ? "Available" : "Sold Out"}</p>
-                <p>Warm? : ${(obj.isWarm === true) ? "Yes" : "No"}</p>
-                <p>Organic? : ${(obj.isOrganic === true) ? "Yes" : "No"}</p>
-                <p>Crust: ${obj.crust}</p>
-                <p>Ice Cream Pairing: ${obj.iceCream}</p>
-                <p>Drink Pairing: ${obj.drinkPairing}</p>
-                <p>Nominated By: ${obj.instructor}</p>
-            </div>
-        </div>`);
+const pieBuilder = (arr) => {
+    let string = "";
+    arr.forEach(function (obj) {
+        string += `
+            <div class="card">
+                <img src="${obj.img}" alt="${obj.name}" style="width:100%">
+                <div class="container">
+                    <h4><b>${obj.name}</b></h4>
+                    <p>Price: $${obj.price}</p>
+                    <p>${(obj.isAvailable === true) ? "Available" : "Sold Out"}</p>
+                    <p>Warm? : ${(obj.isWarm === true) ? "Yes" : "No"}</p>
+                    <p>Organic? : ${(obj.isOrganic === true) ? "Yes" : "No"}</p>
+                    <p>Crust: ${obj.crust}</p>
+                    <p>Ice Cream Pairing: ${obj.iceCream}</p>
+                    <p>Drink Pairing: ${obj.drinkPairing}</p>
+                    <p>Nominated By: ${obj.instructor}</p>
+                </div>
+            </div>`;
     })
+    printToDOM("root", string);
 }
 
-const clearDiv = () => {
+// const clearDiv = () => {
+//     document.getElementById("root").innerHTML = "";
+// }
+
+// const zoe = () => {
+//     document.getElementById("root").innerHTML = "";
+//     const zoePies = [];
+//     pies.forEach(function (obj) {
+//         if (obj.instructor === "Zoe") {
+//             zoePies.push(obj);
+//         }
+//     })
+//     pieBuilder(zoePies);
+// }
+
+// const mary = () => {
+//     document.getElementById("root").innerHTML = "";
+//     const maryPies = [];
+//     pies.forEach(function (obj) {
+//         if (obj.instructor === "Mary") {
+//             maryPies.push(obj);
+//         }
+//     })
+//     pieBuilder(maryPies);
+// }
+
+// const luke = () => {
+//     document.getElementById("root").innerHTML = "";
+//     const lukePies = [];
+//     pies.forEach(function (obj) {
+//         if (obj.instructor === "Luke") {
+//             lukePies.push(obj);
+//         }
+//     })
+//     pieBuilder(lukePies);
+// }
+
+// const me = () => {
+//     document.getElementById("root").innerHTML = "";
+//     const myPies = [];
+//     pies.forEach(function (obj) {
+//         if (obj.instructor === "David") {
+//             myPies.push(obj);
+//         }
+//     })
+//     pieBuilder(myPies);
+// }
+
+const allPies = () => {
     document.getElementById("root").innerHTML = "";
+    pieBuilder(pies);
 }
-document.getElementById("button-2").addEventListener("click", clearDiv);
-document.getElementById("button-1").addEventListener("click", pieBuilder);
+
+const findMyPies = (e) => {
+    const buttonId = e.target.id;
+    const myPies = [];
+    for (let i = 0; i < pies.length; i++) {
+        if (pies[i].instructor === buttonId) {
+            myPies.push(pies[i]);
+        }
+    }
+    pieBuilder(myPies);
+}
+
+document.getElementById("Zoe").addEventListener("click", findMyPies);
+document.getElementById("Mary").addEventListener("click", findMyPies);
+document.getElementById("Luke").addEventListener("click", findMyPies);
+document.getElementById("Me").addEventListener("click", findMyPies);
+document.getElementById("All").addEventListener("click", findMyPies);
+
+const init = () => {
+    pieBuilder(pies);
+    event();
+}
